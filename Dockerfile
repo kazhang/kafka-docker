@@ -1,8 +1,8 @@
 FROM anapsix/alpine-java
 
-MAINTAINER Wurstmeister 
+MAINTAINER Kai Zhang
 
-RUN apk add --update unzip wget curl docker jq coreutils
+RUN apk add --update unzip wget curl jq coreutils
 
 ENV KAFKA_VERSION="0.9.0.1" SCALA_VERSION="2.11"
 ADD download-kafka.sh /tmp/download-kafka.sh
@@ -12,7 +12,6 @@ VOLUME ["/kafka"]
 
 ENV KAFKA_HOME /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION}
 ADD start-kafka.sh /usr/bin/start-kafka.sh
-ADD broker-list.sh /usr/bin/broker-list.sh
 ADD create-topics.sh /usr/bin/create-topics.sh
 
 # Use "exec" form so that it runs as PID 1 (useful for graceful shutdown)
