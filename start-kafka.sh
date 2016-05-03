@@ -39,10 +39,10 @@ do
   fi
 done
 
-cat /etc/hosts | sed -e "s|${HOSTNAME}|${HOSTNAME} ${SERVICE}|g" > /etc/hosts
-
 # Capture kill requests to stop properly
 trap "$KAFKA_HOME/bin/kafka-server-stop.sh; echo 'Kafka stopped.'; exit" SIGHUP SIGINT SIGTERM
+
+python /usr/bin/modify_host.py
 
 create-topics.sh & 
 $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
